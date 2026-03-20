@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fishgoo — Fix Your Supply Chain. Scale Faster.</title>
+  <meta name="description" content="Sourcing + QC + Shipping — all in one place. Built for Shopify & TikTok sellers. 7-12 day delivery, verified suppliers, QC before shipping.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a25;
+      --border: #2a2a3a;
+      --purple: #a78bfa;
+      --purple-dim: #7c5fc9;
+      --green: #4ade80;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --text: #e8e8f0;
+      --text-dim: #8888a0;
+      --text-muted: #55556a;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { color: var(--text); }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Nav */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand { font-weight: 700; font-size: 1.2rem; color: var(--text); letter-spacing: -0.5px; }
+    .brand span { color: var(--purple); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { color: var(--text-dim); font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--purple);
+      color: var(--bg) !important;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .nav-cta:hover { background: var(--purple-dim); color: var(--bg) !important; }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .mobile-menu-btn { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 65px; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px; gap: 16px; z-index: 100; }
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow span { color: var(--purple); }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 .accent { color: var(--purple); }
+    
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      max-width: 580px;
+      margin: 0 auto 32px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    
+    .hero-bullets {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+    .hero-bullets span {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 15px;
+    }
+    .hero-bullets span strong { color: var(--green); }
+    
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .hero-contact {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+    .hero-contact a { color: var(--text-dim); }
+    .hero-contact a:hover { color: var(--purple); }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--purple); color: var(--bg); }
+    .btn-primary:hover { background: var(--purple-dim); color: var(--bg); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+    
+    /* Problem */
+    .problem-section {
+      padding: 80px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label { text-align: center; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 12px; }
+    .section-title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 600; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .section-sub { text-align: center; color: var(--text-dim); max-width: 500px; margin: 0 auto 48px; font-size: 1rem; }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .problem-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .problem-card:hover { border-color: var(--red); }
+    .problem-card .emoji { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .problem-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--text); }
+    .problem-card p { font-size: 0.85rem; color: var(--text-dim); }
+    
+    .problem-quote {
+      text-align: center;
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      border-left: 3px solid var(--red);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .problem-quote p { font-size: 1.05rem; font-weight: 500; color: var(--text); }
+    .problem-quote p span { color: var(--red); }
+    
+    @media (max-width: 768px) {
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* Solution */
+    .solution-section { padding: 80px 0; }
+    .solution-box {
+      background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, var(--surface) 100%);
+      border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 24px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .solution-box h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .solution-box h2 span { color: var(--purple); }
+    .solution-box .tagline {
+      font-size: 1.4rem;
+      color: var(--text-dim);
+      font-weight: 300;
+      margin-bottom: 28px;
+    }
+    .solution-box .big-plus {
+      display: inline-block;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin: 8px;
+    }
+    .solution-box .big-plus span { color: var(--green); font-weight: 600; }
+    .solution-box .bottom-line {
+      margin-top: 28px;
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      font-weight: 300;
+    }
+    .solution-box .bottom-line strong { color: var(--green); }
+    
+    /* How it works */
+    .how-section { padding: 80px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step { text-align: center; padding: 24px 16px; }
+    .step-num {
+      width: 44px; height: 44px;
+      background: var(--purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--bg);
+    }
+    .step h3 { font-size: 0.95rem; margin-bottom: 8px; font-weight: 600; }
+    .step p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+    
+    @media (max-width: 768px) {
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    /* Core Value */
+    .value-section { padding: 80px 0; }
+    .value-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .value-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: border-color 0.2s;
+    }
+    .value-card:hover { border-color: var(--purple); }
+    .value-card .icon { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+    .value-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .value-card h3 span { color: var(--green); }
+    .value-card p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; }
+    
+    @media (max-width: 768px) {
+      .value-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* Results */
+    .results-section {
+      padding: 80px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .result-item { text-align: center; padding: 24px 16px; }
+    .result-item .arrow { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .result-item .num { font-size: 2rem; font-weight: 700; margin-bottom: 4px; }
+    .result-item .num.down { color: var(--green); }
+    .result-item .num.up { color: var(--green); }
+    .result-item .label { font-size: 0.82rem; color: var(--text-dim); }
+    
+    @media (max-width: 768px) {
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    /* WHO IT'S FOR */
+    .who-section { padding: 80px 0; }
+    .who-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+    .who-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 40px;
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    
+    /* Trust */
+    .trust-section { padding: 60px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-grid { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+    .trust-item { text-align: center; }
+    .trust-item .icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .trust-item p { font-size: 0.9rem; color: var(--text-dim); }
+    
+    /* CTA */
+    .cta-section { padding: 100px 0; text-align: center; }
+    .cta-section h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .cta-section p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 36px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .cta-contacts { margin-top: 28px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-dim); }
+    .cta-contacts a { color: var(--text-dim); }
+    .cta-contacts a:hover { color: var(--purple); }
+    .cta-social { margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); }
+    .cta-social a { color: var(--text-muted); margin: 0 8px; }
+    .cta-social a:hover { color: var(--purple); }
+    
+    /* Footer */
+    footer { padding: 40px 0; border-top: 1px solid var(--border); }
+    footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer .brand { font-weight: 700; }
+    footer .brand span { color: var(--purple); }
+    footer .copy { font-size: 0.8rem; color: var(--text-muted); width: 100%; text-align: center; margin-top: 16px; }
+    
+    /* Animations */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="brand">Fish<span>goo</span></div>
+      <div class="nav-links" id="navLinks">
+        <a href="#how">How it works</a>
+        <a href="#value">Our Services</a>
+        <a href="#results">Results</a>
+        <a href="#contact" class="nav-cta">Get Free Consultation</a>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow fade-up">🚚 Sourcing + QC + Shipping — All in English</div>
+      
+      <h1 class="fade-up delay-1">
+        <span class="accent">Fix Your Supply Chain.</span><br>
+        Scale Faster.
+      </h1>
+      
+      <p class="hero-sub fade-up delay-2">
+        Your team in China — handling everything from product sourcing to door-to-door delivery. Built for Shopify & TikTok sellers who want to scale without the supply chain headaches.
+      </p>
+      
+      <div class="hero-bullets fade-up delay-2">
+        <span><strong>✔</strong> 7–12 day delivery</span>
+        <span><strong>✔</strong> Verified suppliers</span>
+        <span><strong>✔</strong> QC before shipping</span>
+        <span><strong>✔</strong> Lower total cost</span>
+      </div>
+      
+      <div class="hero-cta-group fade-up delay-3">
+        <a href="#contact" class="btn btn-primary">👉 Get Free Consultation</a>
+        <a href="#how" class="btn btn-outline">See How It Works</a>
+      </div>
+      
+      <div class="hero-contact fade-up delay-4">
+        📧 <a href="mailto:B2B@fishgoo.com">B2B@fishgoo.com</a> &nbsp;|&nbsp; 📱 <a href="https://wa.me/12138814636">WhatsApp: +1 213 881 4636</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="problem-section" id="problem">
+    <div class="container">
+      <div class="section-label">⚠️ Sound familiar?</div>
+      <div class="section-title">Why Most Sellers Get Stuck</div>
+      
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="emoji">⏰</span>
+          <h3>Slow Shipping</h3>
+          <p>Delivery takes forever. Customers complain. You lose repeat buyers.</p>
+        </div>
+        <div class="problem-card">
+          <span class="emoji">🏭</span>
+          <h3>Bad Suppliers</h3>
+          <p>Factory doesn't respond. Quality varies. You can't tell what's going on until it's too late.</p>
+        </div>
+        <div class="problem-card">
+          <span class="emoji">📉</span>
+          <h3>Low Margins</h3>
+          <p>Product cost too high. Shipping eats your profit. There's barely anything left after ads.</p>
+        </div>
+        <div class="problem-card">
+          <span class="emoji">❌</span>
+          <h3>No QC</h3>
+          <p>Defective units ship out. Negative reviews pile up. Your ranking drops.</p>
+        </div>
+        <div class="problem-card">
+          <span class="emoji">⚠️</span>
+          <h3>Too Much Risk</h3>
+          <p>Supplier disappears. Payment held up. No one to call when things go wrong.</p>
+        </div>
+      </div>
+      
+      <div class="problem-quote fade-up">
+        <p>You don't have a <strong>product problem</strong>.<br>You have a <span>supply chain problem</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution-section">
+    <div class="container">
+      <div class="solution-box">
+        <h2>Your <span>Team in China</span></h2>
+        <p class="tagline">Handling everything — Sourcing + QC + Shipping</p>
+        
+        <div class="big-plus">👉 <span>You</span> sell</div>
+        <div class="big-plus">👉 <span>We</span> handle the rest</div>
+        
+        <p class="bottom-line">One partner. End-to-end. <strong>Zero language barriers.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="section-label">Simple process</div>
+      <div class="section-title">How It Works — 4 Steps</div>
+      <div class="section-sub">From product idea to your door — we handle the complexity</div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Send Product Link or Idea</h3>
+          <p>1688, Taobao, Alibaba — any Chinese supplier link. Or just describe what you need in English.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>We Source & Verify</h3>
+          <p>We vet the supplier, confirm price, MOQ, and lead time. You get the real picture — no guessing.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>QC & Storage</h3>
+          <p>We inspect before shipping. Problems caught here — not at your customer's door.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Ship Worldwide</h3>
+          <p>Fast & stable delivery with full tracking. 7-12 days to EU / US door-to-door.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Value -->
+  <section class="value-section" id="value">
+    <div class="container">
+      <div class="section-label">What you get</div>
+      <div class="section-title">Core Value</div>
+      
+      <div class="value-grid">
+        <div class="value-card">
+          <span class="icon">🚚</span>
+          <h3>Fast Shipping <span>↓</span></h3>
+          <p>7–12 days to EU / US with fast dispatch and real-time tracking. No more delivery complaints from customers.</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">🏭</span>
+          <h3>Verified Suppliers <span>✓</span></h3>
+          <p>Access to verified factories and trusted agents. Low or no MOQ supported. No more supplier issues.</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">💰</span>
+          <h3>Lower Cost <span>↑</span></h3>
+          <p>Better product pricing + optimized shipping routes = better margins. Scale your ad spend with confidence.</p>
+        </div>
+        <div class="value-card">
+          <span class="icon">⚠️</span>
+          <h3>Risk Protection <span>↓</span></h3>
+          <p>QC inspection + photo reports + secure payment flows. No more guesswork or unpleasant surprises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="results-section" id="results">
+    <div class="container">
+      <div class="section-label">Real impact</div>
+      <div class="section-title">What Changes</div>
+      
+      <div class="results-grid">
+        <div class="result-item">
+          <span class="arrow">↓</span>
+          <div class="num down">Shipping Cost</div>
+          <div class="label">Lower landed cost</div>
+        </div>
+        <div class="result-item">
+          <span class="arrow">↓</span>
+          <div class="num down">Delivery Time</div>
+          <div class="label">7-12 days to door</div>
+        </div>
+        <div class="result-item">
+          <span class="arrow">↓</span>
+          <div class="num down">Returns</div>
+          <div class="label">QC catches issues early</div>
+        </div>
+        <div class="result-item">
+          <span class="arrow">↑</span>
+          <div class="num up">Profit Margin</div>
+          <div class="label">Better margins</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who-section">
+    <div class="container">
+      <div class="section-label">Built for</div>
+      <div class="section-title">Who It's For</div>
+      
+      <div class="who-grid">
+        <div class="who-card">🛒 Shopify Sellers</div>
+        <div class="who-card">📦 Dropshippers Scaling Up</div>
+        <div class="who-card">🏭 Brands Going Private Label</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="section-label">Why us?</div>
+      
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="icon">🇨🇳</span>
+          <p>Based in China</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">📦</span>
+          <p>Real Warehouse</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">🔍</span>
+          <p>Real QC Process</p>
+        </div>
+        <div class="trust-item">
+          <span class="icon">💬</span>
+          <p>English-Speaking Team</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <h2>Ready to scale without<br>supply chain problems?</h2>
+      <p>Get a free consultation — tell us what you're selling and we'll show you how to source it better.</p>
+      
+      <div class="cta-buttons">
+        <a href="mailto:B2B@fishgoo.com" class="btn btn-primary">📬 Email Us — B2B@fishgoo.com</a>
+        <a href="https://wa.me/12138814636" class="btn btn-outline">💬 WhatsApp — +1 213 881 4636</a>
+      </div>
+      
+      <div class="cta-contacts">
+        📧 <a href="mailto:B2B@fishgoo.com">B2B@fishgoo.com</a>
+        &nbsp;|&nbsp;
+        💬 <a href="https://wa.me/12138814636">WhatsApp</a>
+      </div>
+      
+      <div class="cta-social">
+        📌 TikTok: <a href="#">@fishgoo.oficial</a> &nbsp;|&nbsp; 💼 LinkedIn: <a href="#">Fishgoo Official</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="brand">Fish<span>goo</span></div>
+      <div class="copy">
+        © 2025 Fishgoo. Sourcing + QC + Shipping — all in one place.<br>
+        📧 B2B@fishgoo.com &nbsp;|&nbsp; 💬 WhatsApp +1 213 881 4636
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
